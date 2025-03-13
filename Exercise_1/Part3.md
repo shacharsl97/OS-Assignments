@@ -4,6 +4,7 @@ Mini Task Scheduler Implementation in C
 Overview
 --------
 In this project, you will develop a **mini task scheduler** that executes commands based on a predefined schedule. Your program will read commands from a file, execute them at specified times, and log the results.
+Your code should be written in C and be named scheduler.c.
 
 Requirements
 ------------
@@ -34,10 +35,19 @@ Example `tasks.txt`:
 
 ### 3. Logging
 - Create a log file (`scheduler.log`) to record executed commands with timestamps.
-- Format each log entry as:
-  ```
-  [timestamp] Executed: <command>
-  ```
+Format each log entry as:
+
+[Elapsed: Xs] Executed: <command>
+
+where X is the number of seconds elapsed since the start of execution.
+
+Capture and log the output of each command (both stdout and stderr). The log format should be:
+
+[Elapsed: Xs] Executed: <command>
+Output:
+<command_output>
+
+If a command produces no output, the log should still include an empty Output: section.
 - If a command fails, log an error message instead.
 
 Example Run
@@ -48,6 +58,7 @@ Example Run
 2 2 echo "Task 1"
 2 1 echo "Task 2"
 5 1 ls -l
+8 1 touch newfile.txt
 ```
 
 ### Expected Execution Order:
@@ -57,18 +68,25 @@ Example Run
 
 Example scheduler.log:
 
-[10:00:02] Executed: echo "Task 2"
-[10:00:02] Executed: echo "Task 1"
-[10:00:05] Executed: ls -l
+```
+[Elapsed: 2s] Executed: echo "Task 2"
+Output:
+Task 2
 
-Submission Requirements
+[Elapsed: 2s] Executed: echo "Task 1"
+Output:
+Task 1
 
-Source code (scheduler.c or equivalent)
+[Elapsed: 5s] Executed: ls -l
+Output:
+total 4
+drwxr-xr-x 2 user user 4096 Mar 13 12:00 test_folder
 
-Compilation instructions in a README.md
+[Elapsed: 8s] Executed: touch newfile.txt
+Output:
+```
 
-Example input file (tasks.txt)
+Note that in this example your directory should also contain an empty newfile.txt
 
-Example output (scheduler.log)
 
 Good luck!
