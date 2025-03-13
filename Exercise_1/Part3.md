@@ -3,9 +3,7 @@ Mini Task Scheduler Implementation in C
 
 Overview
 --------
-In this project, you will develop a **mini task scheduler** that executes commands based on a predefined schedule. Instead of an interactive shell, your program will read commands from a file, execute them at specified times, and log the results.
-
-This exercise builds on the previous parts by requiring you to manage **process creation (`fork()`), execution (`exec()`), and synchronization (`wait()`)** while adding scheduling logic.
+In this project, you will develop a **mini task scheduler** that executes commands based on a predefined schedule. Your program will read commands from a file, execute them at specified times, and log the results.
 
 Requirements
 ------------
@@ -42,9 +40,6 @@ Example `tasks.txt`:
   ```
 - If a command fails, log an error message instead.
 
-### 4. Graceful Termination (Bonus)
-- Handle `SIGINT` (`Ctrl+C`) so that if the user interrupts execution, the program stops cleanly and logs the interruption.
-
 Example Run
 ------------
 
@@ -60,6 +55,20 @@ Example Run
 2. Execute `echo "Task 1"`
 3. Wait 3 more seconds (total 5) → Execute `ls -l`
 
-### Example `scheduler.log`:
-```
-[10:
+Example scheduler.log:
+
+[10:00:02] Executed: echo "Task 2"
+[10:00:02] Executed: echo "Task 1"
+[10:00:05] Executed: ls -l
+
+Submission Requirements
+
+Source code (scheduler.c or equivalent)
+
+Compilation instructions in a README.md
+
+Example input file (tasks.txt)
+
+Example output (scheduler.log)
+
+Good luck!
