@@ -1,60 +1,65 @@
-Custom Shell Implementation in C
-================================
+Mini Task Scheduler Implementation in C
+=================================
 
 Overview
 --------
-In this project, you will develop a simple command-line interpreter, or shell, named `myshell.c`. This custom shell will handle basic Linux commands like `ls`, `cat`, and `sleep`, without supporting pipes or complex commands. The shell will be implemented in C using `fork()` and `exec()`.
+In this project, you will develop a **mini task scheduler** that executes commands based on a predefined schedule. Instead of an interactive shell, your program will read commands from a file, execute them at specified times, and log the results.
 
-Objectives
-----------
-* Implement a custom shell in C that can execute basic Linux commands using `fork()` and `exec()`. Pipes and complex commands are not required.
-* Implement specific shell commands (`history`, `cd`, `pwd`, `exit`) without using the default Unix implementations.
-* Ensure all commands run in the foreground and handle errors appropriately. The parent process should wait for the child process to complete. (if failed just print `perror("X failed")` X might be fork, wait and etc.. and exit.)
-* When the compiled program is initially run, it should accept any number of arguments consisting only of paths that may contain executable commands (e.g., `./a.out /root/custom_folder /root/another_folder`). Any executable program within those folders should be recognized by the shell.
+This exercise builds on the previous parts by requiring you to manage **process creation (`fork()`), execution (`exec()`), and synchronization (`wait()`)** while adding scheduling logic.
 
-Unix Commands:
-* The program should allow the user to enter any known (and simple) Unix command with any number of arguments. Assume the command entered is in a directory passed as an argument when the program is started (e.g., `./a.out /root/custom_folder /root/another_folder`) or in a directory already in the `PATH` variable.
+Requirements
+------------
 
-Environment Variables
----------------------
-* The shell should accept any number of command-line arguments (paths).
-* The shell should recognize any executable in those directories or in the directories already in the `$PATH` variable.
-* Ensure that when the shell exits, the environment variables remain unchanged from their state prior to running the shell.
+### 1. Reading Tasks from a File
+Your program will take an input file (e.g., `tasks.txt`), where each line represents a command to be executed at a specific time with a priority. The format is:
 
-Custom Commands
----------------
-You need to implement the following shell commands without using the Unix defaults:
-* **`history`**: Display the list of commands that have been entered during the session (history prints in FIFO and includes the history command itself).
-* **`cd`**: Change the current directory within the shell environment (use `chdir()`).
-* **`pwd`**: Print the current working directory (use `getcwd()`).
-* **`exit`**: Exit the shell.
-These commands should be implemented using appropriate system calls and library functions available in C.
-
-Command Execution
------------------
-* Commands should be executed in the foreground using `exec()` in a forked process.
-* For commands not explicitly handled (`history`, `cd`, `pwd`, `exit`), NO EXEC OR FORK ARE NEEDED!
-* Use `strtok()` with a space delimiter to parse the command into its core components.
-
-Error Handling
---------------
-* If a system call fails, the shell should use `perror()` to print an error message indicating which system call failed, e.g., `perror("fork failed")`.
-
-Output Specifications
----------------------
-* The shell should not print anything except the required output from commands or error messages.
-* The prompt should be displayed as follows:
-```c
-printf("$ ");
-fflush(stdout);
+```
+<execution_time> <priority> <command>
 ```
 
-Assumptions
------------
-* The shell will handle up to 100 commands, with each command's length also limited to 100 characters.
-* There are no spaces in the names of directories and files passed as arguments to the shell.
+- `<execution_time>`: Number of seconds to wait before executing the command.
+- `<priority>`: An integer (lower number = higher priority) that determines execution order if multiple commands have the same execution time.
+- `<command>`: The command to execute, including arguments.
 
-Restrictions
+Example `tasks.txt`:
+```
+5 1 ls -l
+2 2 echo "Hello, World!"
+10 1 sleep 3
+```
+
+### 2. Execution Order & Scheduling
+- Commands should be sorted by **execution_time** (earliest first). If two commands have the same execution time, the one with **higher priority (lower number)** should run first.
+- The program should wait the appropriate time (`execution_time` from program start) before running each command.
+- Each command should run in its own child process (`fork()` and `exec()`).
+- The program should wait for each command to finish (`wait()`) before running the next one.
+
+### 3. Logging
+- Create a log file (`scheduler.log`) to record executed commands with timestamps.
+- Format each log entry as:
+  ```
+  [timestamp] Executed: <command>
+  ```
+- If a command fails, log an error message instead.
+
+### 4. Graceful Termination (Bonus)
+- Handle `SIGINT` (`Ctrl+C`) so that if the user interrupts execution, the program stops cleanly and logs the interruption.
+
+Example Run
 ------------
-* Adding new environment variables for command execution should not affect the existing ones prior to running the program.
-* Changes to the current directory (`cd`) within the shell should not affect the working directory after the shell is closed.
+
+### Given `tasks.txt`:
+```
+2 2 echo "Task 1"
+2 1 echo "Task 2"
+5 1 ls -l
+```
+
+### Expected Execution Order:
+1. Wait 2 seconds → Execute `echo "Task 2"`
+2. Execute `echo "Task 1"`
+3. Wait 3 more seconds (total 5) → Execute `ls -l`
+
+### Example `scheduler.log`:
+```
+[10:
