@@ -74,7 +74,7 @@ The program must accept exactly two arguments:
 - Maximum path length is 1024 characters
 - Maximum filename length is 256 characters
 - When you are iterating over the files of the source directory, checking whether they need to be created/copied on the destination directory, make sure you do so alphabetically, so you will get the same print order as we did during the automatic tests.
-- Your program will be compiled using the command: `gcc -Wall -o file_sync file_sync.c`. Make sure it works, warnings can be ignored.
+- Your program will be compiled using the command: `gcc -o file_sync file_sync.c`. Make sure it works, warnings can be ignored.
 
 Examples
 -------
