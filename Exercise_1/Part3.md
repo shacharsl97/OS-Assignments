@@ -1,92 +1,139 @@
-Mini Task Scheduler Implementation in C
-=================================
+# File Synchronization Tool in C
+==============================
 
 Overview
 --------
-In this project, you will develop a **mini task scheduler** that executes commands based on a predefined schedule. Your program will read commands from a file, execute them at specified times, and log the results.
-Your code should be written in C and be named scheduler.c.
 
-Requirements
-------------
+In this part of the assignment, you will implement a file synchronization tool in C called `file_sync.c`. The program will compare files between two directories and copy newer or missing files from a source directory to a destination directory. This practical utility demonstrates the use of key system calls such as `chdir()`, `getcwd()`, `fork()`, `exec()`, and `wait()`.
 
-### 1. Reading Tasks from a File
-Your program will take an input file (e.g., `tasks.txt`), where each line represents a command to be executed at a specific time with a priority. The format is:
+Objectives
+----------
+
+* Gain hands-on experience with file system navigation using `chdir()` and `getcwd()`
+* Practice process creation and management with `fork()`, `exec()`, and `wait()`
+* Learn to work with directory content and file attributes
+
+Program Requirements
+-------------------
+
+### Command-Line Arguments
+
+The program must accept exactly two arguments:
+- **Source directory**: The path to the directory containing files to be synchronized.
+- **Destination directory**: The path to the directory where files will be synchronized to.
+
+### Expected Behavior
+
+1. **Argument Validation**: If the number of arguments is incorrect, print: `"Usage: ./file_sync <source_directory> <destination_directory>"` and exit with status 1.
+2. **Directory Checks**:
+   - If the source directory does not exist, print: `"Error: Source directory '<source_dir>' does not exist."` and exit with status 1.
+   - If the destination directory does not exist, create it and print: `"Created destination directory '<dest_dir>'."`.
+3. **Directory Navigation**:
+   - Use `getcwd()` to obtain and display the current working directory at the start of the program: `"Current working directory: <current_dir>"`
+   - Use `chdir()` to navigate between directories during synchronization.
+4. **File Synchronization**:
+   - For each file in the source directory:
+     - If the file doesn't exist in the destination directory, copy it and print: `"New file found: <filename>"`
+     - If the file exists in both directories:
+       - Use `fork()` and `exec()` to run the `diff` command to compare files.
+       - Use `wait()` to get the result.
+       - If files are identical, print: `"File <filename> is identical. Skipping..."`
+       - If files differ and the source file is newer, copy it and print: `"File <filename> is newer in source. Updating..."`
+       - If files differ but the destination file is newer, print: `"File <filename> is newer in destination. Skipping..."`
+5. **Process Management**:
+   - Use `fork()` to create child processes for running external commands.
+   - Use an appropriate `exec()` function to execute command line utilities like `diff` and `cp`.
+   - Use `wait()` to manage the parent-child relationship correctly.
+6. **Completion Message**: After processing all files, print: `"Synchronization complete."`
+
+### Technical Requirements
+
+1. **System Calls**: Your implementation must use the following system calls:
+   - `getcwd()` - To get the current working directory
+   - `chdir()` - To change directories
+   - `fork()` - To create child processes
+   - `exec()` (any variant such as `execl()` or `execvp()`) - To execute external commands
+   - `wait()` or `waitpid()` - To wait for child processes
+
+2. **Child Process Operations**:
+   - Use `fork()` and `exec()` to run the `diff` command for file comparison
+   - Use `fork()` and `exec()` to run the `cp` command to copy files
+   - Use `fork()` and `exec()` to create directories if needed
+
+3. **Error Handling**:
+   - Proper error checking for all system calls
+   - Use `perror()` to report system call failures, e.g., `perror("fork failed")`
+   - Exit with appropriate status codes when errors occur
+
+### Restrictions
+
+- Do not use system() function
+- Do not use popen() function
+- Process only regular files, not subdirectories
+- Handle up to 100 files in each directory
+- Maximum path length is 1024 characters
+- Maximum filename length is 256 characters
+- When you are iterating over the files of the source directory, checking whether they need to be created/copied on the destination directory, make sure you do so alphabetically, so you will get the same print order as we did during the automatic tests.
+- Your program will be compiled using the command: `gcc -Wall -o file_sync file_sync.c`. Make sure it works, warnings can be ignored.
+
+Examples
+-------
+
+### Example 1: Basic Usage
 
 ```
-<execution_time> <priority> <command>
+$ ./file_sync source_dir dest_dir
+Current working directory: /home/user/assignment
+Synchronizing from /home/user/assignment/source_dir to /home/user/assignment/dest_dir
+New file found: file1.txt
+Copied: source_dir/file1.txt -> dest_dir/file1.txt
+New file found: file2.txt
+Copied: source_dir/file2.txt -> dest_dir/file2.txt
+Synchronization complete.
 ```
 
-- `<execution_time>`: Number of seconds to wait before executing the command.
-- `<priority>`: An integer (lower number = higher priority) that determines execution order if multiple commands have the same execution time.
-- `<command>`: The command to execute, including arguments.
-
-Example `tasks.txt`:
-```
-5 1 ls -l
-2 2 echo "Hello, World!"
-10 1 sleep 3
-```
-
-### 2. Execution Order & Scheduling
-- Commands should be sorted by **execution_time** (earliest first). If two commands have the same execution time, the one with **higher priority (lower number)** should run first.
-- The program should wait the appropriate time (`execution_time` from program start) before running each command.
-- Each command should run in its own child process (`fork()` and `exec()`).
-- The program should wait for each command to finish (`wait()`) before running the next one.
-
-### 3. Logging
-- Create a log file (`scheduler.log`) to record executed commands with timestamps.
-Format each log entry as:
-
-[Elapsed: Xs] Executed: <command>
-
-where X is the number of seconds elapsed since the start of execution.
-
-Capture and log the output of each command (both stdout and stderr). The log format should be:
-
-[Elapsed: Xs] Executed: <command>
-Output:
-<command_output>
-
-If a command produces no output, the log should still include an empty Output: section.
-- If a command fails, log an error message instead.
-
-Example Run
-------------
-
-### Given `tasks.txt`:
-```
-2 2 echo "Task 1"
-2 1 echo "Task 2"
-5 1 ls -l
-8 1 touch newfile.txt
-```
-
-### Expected Execution Order:
-1. Wait 2 seconds → Execute `echo "Task 2"`
-2. Execute `echo "Task 1"`
-3. Wait 3 more seconds (total 5) → Execute `ls -l`
-
-Example scheduler.log:
+### Example 2: Creating Destination Directory
 
 ```
-[Elapsed: 2s] Executed: echo "Task 2"
-Output:
-Task 2
-
-[Elapsed: 2s] Executed: echo "Task 1"
-Output:
-Task 1
-
-[Elapsed: 5s] Executed: ls -l
-Output:
-total 4
-drwxr-xr-x 2 user user 4096 Mar 13 12:00 test_folder
-
-[Elapsed: 8s] Executed: touch newfile.txt
-Output:
+$ ./file_sync source_dir new_dest_dir
+Current working directory: /home/user/assignment
+Created destination directory 'new_dest_dir'.
+Synchronizing from /home/user/assignment/source_dir to /home/user/assignment/new_dest_dir
+New file found: file1.txt
+Copied: source_dir/file1.txt -> new_dest_dir/file1.txt
+New file found: file2.txt
+Copied: source_dir/file2.txt -> new_dest_dir/file2.txt
+Synchronization complete.
 ```
 
-Note that in this example your directory should also contain an empty newfile.txt
+### Example 3: Error Handling
 
+```
+$ ./file_sync nonexistent_dir dest_dir
+Error: Source directory 'nonexistent_dir' does not exist.
+```
 
-Good luck!
+### Example 4: File Comparison
+
+```
+$ ./file_sync source_dir dest_dir
+Current working directory: /home/user/assignment
+Synchronizing from /home/user/assignment/source_dir to /home/user/assignment/dest_dir
+File file1.txt is identical. Skipping...
+File file2.txt is newer in source. Updating...
+Copied: source_dir/file2.txt -> dest_dir/file2.txt
+File file3.txt is newer in destination. Skipping...
+Synchronization complete.
+```
+
+### Example 5: Incorrect Arguments
+
+```
+$ ./file_sync source_dir
+Usage: ./file_sync <source_directory> <destination_directory>
+```
+
+Testing
+-------
+
+Your program will be evaluated on both functionality and adherence to the requirements, including the use of specific system calls. To test your implementation, we will use a script that creates test directories with various files, runs your program, and verifies the output matches the expected behavior. Follow the output specifications **exactly** to ensure your program passes the automated tests.
