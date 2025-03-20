@@ -137,3 +137,18 @@ Testing
 -------
 
 Your program will be evaluated on both functionality and adherence to the requirements, including the use of specific system calls. To test your implementation, we will use a script that creates test directories with various files, runs your program, and verifies the output matches the expected behavior. Follow the output specifications **exactly** to ensure your program passes the automated tests.
+
+
+Guidance
+-------
+
+Since using execl with arguments is new to you, we've wanted to include a small example to help you understand how to use it - the following snippet runs the `ls` command with the `-l` agument:
+`execl("/bin/ls", "ls", "-l", NULL);`
+
+In addition, because the `diff` command prints to stdout when it is being run, you will need to suprass its output and only use its return code to see whether the files are equal or different. To do so, add the following code before running `execl`:
+```c 
+int null_fd = open("/dev/null", O_WRONLY);
+dup2(null_fd, STDOUT_FILENO);
+close(null_fd);
+execl("/usr/bin/diff", "diff", "-q", path1, path2, NULL);
+```
