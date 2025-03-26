@@ -1,13 +1,13 @@
 # Exercise 1: Operating Systems
 
 ## Due Date
-The due date for this exercise is **27.11.2024, 23:59**.
+The due date for this exercise is **12.04.25, 23:59**.
 
 ## Submission Instructions
 Submit your solution as a zip file containing the following files:
 - `split_pgn.sh`
 - `chess_sim.sh`
-- `myshell.c`
+- `file_sync.c`
 
 ### Submission Link
 Please submit your zip file to the submission system: [https://submit.cs.biu.ac.il/cgi-bin/welcome.cgi](https://submit.cs.biu.ac.il/cgi-bin/welcome.cgi)
