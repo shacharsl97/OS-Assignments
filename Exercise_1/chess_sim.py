@@ -20,7 +20,7 @@ def print_metadata(metadata):
         print(f"[{key} \"{value}\"]")
 
 def print_board(board, current_move, total_moves):
-    print(f"\nMove {current_move}/{total_moves}")
+    print(f"Move {current_move}/{total_moves}")
     print("  a b c d e f g h")
     for rank in range(8, 0, -1):
         row = f"{rank} "
@@ -47,14 +47,13 @@ def main():
     print_board(board, move_index, total_moves)
 
     while True:
-        key = input("Press 'd' to move forward, 'a' to move back, 'w' to go to the start, 's' to go to the end, 'q' to quit:").strip().lower()
+        key = input("Press 'd' to move forward, 'a' to move back, 'w' to go to the start, 's' to go to the end, 'q' to quit: ").strip().lower()
         if key == 'd':
             if move_index < total_moves:
                 board.push_uci(moves[move_index])
                 move_index += 1
                 print_board(board, move_index, total_moves)
             else:
-                print()
                 print("No more moves available.")
         elif key == 'a':
             if move_index > 0:
@@ -74,12 +73,10 @@ def main():
                 move_index += 1
             print_board(board, move_index, total_moves)
         elif key == 'q':
-            print()
             print("Exiting.")
             print("End of game.")
             break
         else:
-            print()
             print(f"Invalid key pressed: {key}")
 
 if __name__ == "__main__":
