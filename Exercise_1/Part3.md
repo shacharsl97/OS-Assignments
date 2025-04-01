@@ -110,6 +110,7 @@ Synchronization complete.
 
 ```
 $ ./file_sync nonexistent_dir dest_dir
+Current working directory: /home/user/assignment
 Error: Source directory 'nonexistent_dir' does not exist.
 ```
 
