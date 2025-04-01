@@ -308,7 +308,7 @@ No more moves available.
 Press 'd' to move forward, 'a' to move back, 'w' to go to the start, 's' to go to the end, 'q' to quit:
 ```
 Example (pressing a at the beggining of the game):
-bash```
+```bash
 (base) itay@itayPC:~/Documents/Repos/Operation-Systems-Solutions/Operation-System-Solutions/Exercise1$ ./chess_sim.sh splited_pgn/capmemel24_1.pgn 
 Metadata from PGN file:
 [Event "57th Capablanca Mem"]
