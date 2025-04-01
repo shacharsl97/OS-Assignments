@@ -86,9 +86,9 @@ $ ./file_sync source_dir dest_dir
 Current working directory: /home/user/assignment
 Synchronizing from /home/user/assignment/source_dir to /home/user/assignment/dest_dir
 New file found: file1.txt
-Copied: source_dir/file1.txt -> dest_dir/file1.txt
+Copied: /home/user/assignment/source_dir/file1.txt -> /home/user/assignment/dest_dir/file1.txt
 New file found: file2.txt
-Copied: source_dir/file2.txt -> dest_dir/file2.txt
+Copied: /home/user/assignment/source_dir/file2.txt -> /home/user/assignment/dest_dir/file2.txt
 Synchronization complete.
 ```
 
@@ -100,9 +100,9 @@ Current working directory: /home/user/assignment
 Created destination directory 'new_dest_dir'.
 Synchronizing from /home/user/assignment/source_dir to /home/user/assignment/new_dest_dir
 New file found: file1.txt
-Copied: source_dir/file1.txt -> new_dest_dir/file1.txt
+Copied: /home/user/assignment/source_dir/file1.txt -> /home/user/assignment/new_dest_dir/file1.txt
 New file found: file2.txt
-Copied: source_dir/file2.txt -> new_dest_dir/file2.txt
+Copied: /home/user/assignment/source_dir/file2.txt -> /home/user/assignment/new_dest_dir/file2.txt
 Synchronization complete.
 ```
 
@@ -122,7 +122,7 @@ Current working directory: /home/user/assignment
 Synchronizing from /home/user/assignment/source_dir to /home/user/assignment/dest_dir
 File file1.txt is identical. Skipping...
 File file2.txt is newer in source. Updating...
-Copied: source_dir/file2.txt -> dest_dir/file2.txt
+Copied: /home/user/assignment/source_dir/file2.txt -> /home/user/assignment/dest_dir/file2.txt
 File file3.txt is newer in destination. Skipping...
 Synchronization complete.
 ```
