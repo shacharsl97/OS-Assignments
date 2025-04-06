@@ -131,6 +131,7 @@ Synchronization complete.
 
 ```
 $ ./file_sync source_dir
+Current working directory: /home/user/assignment
 Usage: ./file_sync <source_directory> <destination_directory>
 ```
 
