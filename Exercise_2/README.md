@@ -1,7 +1,7 @@
 # Exercise 2: Operating Systems
 
 ## Due Date
-The due date for this exercise is **15.4.2025, 23:59**.
+The due date for this exercise is **18.5.2025, 23:59**.
 
 ## Submission Instructions
 Submit your solution as a zip file containing **ONLY** the following files:
