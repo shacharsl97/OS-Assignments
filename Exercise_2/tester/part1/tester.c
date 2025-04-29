@@ -23,8 +23,8 @@ int compareWinners(const char filename[]) {
     FILE* filePtr = fopen(filename, "r");
     bytesRead1 = getline(&line1, &len1, filePtr);
     bytesRead2 = getline(&line2, &len2, filePtr);
-    printf(YELLOW "Your Program:" RESET "\n%s\n", line1);
-    printf(YELLOW "Tester Program:" RESET" \n%s\n", line2);
+    printf(YELLOW "Your Program:" RESET "\n%s\n", line2);
+    printf(YELLOW "Tester Program:" RESET" \n%s\n", line1);
     if (!strcmp(line1, line2)) {
         printf(GREEN "✅ The winner message is the same!\n" RESET);
     } else {
