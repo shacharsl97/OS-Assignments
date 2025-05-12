@@ -82,6 +82,11 @@ dest_dir/
 - The backup directory **must not already exist**, otherwise `perror("backup dir")`.
 - The copied symbolic links **are not pointing to the original file** but to the copied file (see the example).
 
+## Forum
+To make things easier, all the paths inside the src directory will be relative — and relative only.
+This isn’t a new requirement, just a small adjustment to help you avoid unnecessary complications :)
+If your code worked before - it will still work now.
+
 ## Conclusion
 This tool is a **fast and efficient** way to back up directories while preserving **hard links and symlinks**, making it useful for versioning, backups, and system management!
 
