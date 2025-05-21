@@ -345,7 +345,7 @@ For example, to compile and run your program with a CSV file and a time quantum 
 
 ```bash
 gcc ex3.c -o ex3
-./ex3 processes.csv 2
+./ex3 CPU-Scheduler processes.csv 2
 ```
 
 Where:
