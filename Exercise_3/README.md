@@ -1,7 +1,7 @@
 # Excercise 3: Operating Systems
 
 ## Due Date
-The due date for this exercise is **6.4.2025, 23:59**.
+The due date for this exercise is **12.6.2025, 23:59**.
 
 ## Submission Instructions
 Submit your solution as a zip file containing **ONLY** the following files:
@@ -318,7 +318,7 @@ Your job is to implement a CPU scheduling engine that:
 
 * The simulation should be **fully deterministic**, reflecting the logic of a real OS-level scheduler.
 
-* If two or more processes have the same values for the fields used to determine their order (based on the current scheduling algorithm), then you should preserve their original order as they appear in the input CSV file.
+* If two or more processes have the same values for the fields used to determine their scheduling order (according to the current scheduling algorithm), their order should be determined by their arrival time. If the arrival times are also equal, you must preserve their original order as given in the input CSV file.
 
 * At the end of each scheduling algorithm, display a final report summarizing its results.
   - For the **FCFS, SJF, and Priority** algorithms, include the **average waiting time**, formatted to two digits after the decimal point.
@@ -448,7 +448,10 @@ Assuming you compile and run your program as before, your program should display
 
 Here is a demonstration video showcasing how your final execution should appear, including its speed, behavior, and timing of delays:
 
-https://github.com/user-attachments/assets/4774f31b-bf7c-4a0d-ac5e-d8fc764cb5a1
+
+https://github.com/user-attachments/assets/cd982ada-34f5-464a-9022-855d41734a4e
+
+
 
 ### 🧪 Testing and Debugging
 
