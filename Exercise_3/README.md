@@ -47,7 +47,7 @@ Your simulator will support exactly **3 types of distractions**:
 1. **Email notification** — Simulate an academic announcement
    
    Message after handling:
-   `"[Outcome:] The TA announced: Everyone got 100 on the exercise!"`
+   `"[Outcome:] The TA announced: Everyone get 100 on the exercise!"`
 
 3. **Reminder to pick up delivery** — Simulate a timed reminder
    
