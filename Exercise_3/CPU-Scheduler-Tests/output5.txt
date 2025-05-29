@@ -81,8 +81,8 @@
 17 → 20: P7 Running Manages active user session.
 20 → 21: P8 Running Delivers system alerts.
 21 → 23: P10 Running Monitors battery and power state.
-23 → 24: P5 Running Checks for software updates.
-24 → 29: P9 Running Schedules data backup routines.
+23 → 28: P9 Running Schedules data backup routines.
+28 → 29: P5 Running Checks for software updates.
 
 ──────────────────────────────────────────────
 >> Engine Status  : Completed
@@ -91,4 +91,3 @@
 
 >> End of Report
 ══════════════════════════════════════════════
-
