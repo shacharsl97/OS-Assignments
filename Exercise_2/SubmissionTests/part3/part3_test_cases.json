@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Test 1",
+    "src": "src1",
+    "dst": "dst1",
+    "create": {
+      "files": {
+        "src1/file1.txt": "hello",
+        "src1/file2.txt": "world"
+      }
+    },
+    "expected": [
+      "dst1/file1.txt",
+      "dst1/file2.txt"
+    ]
+  },
+  {
+    "name": "Test 2",
+    "src": "src2",
+    "dst": "dst2",
+    "create": {
+      "files": {
+        "src2/a/b/c/inner.txt": "nested"
+      }
+    },
+    "expected": [
+      "dst2/a/b/c/inner.txt"
+    ]
+  },
+  {
+    "name": "Test 3",
+    "src": "src3",
+    "dst": "dst3",
+    "create": {
+      "files": {
+        "src3/real.txt": "real"
+      },
+      "symlinks": {
+        "src3/link.txt": "real.txt"
+      }
+    },
+    "expected": [
+      "dst3/real.txt",
+      "dst3/link.txt"
+    ]
+  },
+  {
+    "name": "Test 4",
+    "src": "src4",
+    "dst": "dst4",
+    "create": {
+      "dirs": [
+        "src4/linked",
+        "src4/dir"
+      ],
+      "symlinks": {
+        "src4/dir/link_to_linked": "../linked"
+      }
+    },
+    "expected": [
+      "dst4/dir/link_to_linked"
+    ]
+  },
+  {
+    "name": "Test 5",
+    "src": "src5",
+    "dst": "dst5",
+    "create": {
+      "files": {
+        "src5/file1.txt": "data1",
+        "src5/file2.txt": "data2",
+        "src5/subdir1/file3.txt": "data3",
+        "src5/subdir1/file4.txt": "data4",
+        "src5/subdir2/file5.txt": "data5"
+      },
+      "symlinks": {
+        "src5/subdir2/link_to_file1": "../file1.txt"
+      }
+    },
+    "expected": [
+      "dst5/file1.txt",
+      "dst5/file2.txt",
+      "dst5/subdir1/file3.txt",
+      "dst5/subdir1/file4.txt",
+      "dst5/subdir2/file5.txt",
+      "dst5/subdir2/link_to_file1"
+    ]
+  },
+  {
+    "name": "Test 6",
+    "src": "src6",
+    "dst": "dst6",
+    "create": {
+      "files": {
+        "src6/a/b/c/d/e/f/g.txt": "deep"
+      }
+    },
+    "expected": [
+      "dst6/a/b/c/d/e/f/g.txt"
+    ]
+  },
+  {
+    "name": "Test 7",
+    "src": "src7",
+    "dst": "dst7",
+    "create": {
+      "files": {
+        "src7/file.txt": "data"
+      },
+      "symlinks": {
+        "src7/link1": "file.txt",
+        "src7/link2": "link1"
+      }
+    },
+    "expected": [
+      "dst7/file.txt",
+      "dst7/link1",
+      "dst7/link2"
+    ]
+  },
+  {
+    "name": "Test 8",
+    "src": "src8",
+    "dst": "dst8",
+    "create": {
+      "files": {
+        "src8/hello world.txt": "space",
+        "src8/omer.txt": "HELLO",
+        "src8/file$.txt": "dollar"
+      }
+    },
+    "expected": [
+      "dst8/hello world.txt",
+      "dst8/omer.txt",
+      "dst8/file$.txt"
+    ]
+  },
+  {
+    "name": "Test 9",
+    "src": "src9",
+    "dst": "dst9",
+    "create": {
+      "files": {
+        "src9/original.txt": "same inode"
+      }
+    },
+    "expected": [
+      "dst9/original.txt"
+    ]
+  },
+  {
+    "name": "Test 10",
+    "src": "src10",
+    "dst": "dst10",
+    "create": {
+      "files": {
+        "src10/file_0.txt": "f0",
+        "src10/file_1.txt": "f1",
+        "src10/file_2.txt": "f2",
+        "src10/file_3.txt": "f3",
+        "src10/file_4.txt": "f4",
+        "src10/file_5.txt": "f5",
+        "src10/file_6.txt": "f6",
+        "src10/file_7.txt": "f7",
+        "src10/file_8.txt": "f8",
+        "src10/file_9.txt": "f9"
+      }
+    },
+    "expected": [
+      "dst10/file_0.txt",
+      "dst10/file_1.txt",
+      "dst10/file_2.txt",
+      "dst10/file_3.txt",
+      "dst10/file_4.txt",
+      "dst10/file_5.txt",
+      "dst10/file_6.txt",
+      "dst10/file_7.txt",
+      "dst10/file_8.txt",
+      "dst10/file_9.txt"
+    ]
+  }
+]

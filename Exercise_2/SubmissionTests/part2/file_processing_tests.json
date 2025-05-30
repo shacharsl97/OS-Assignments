@@ -1,0 +1,62 @@
+[
+    {
+        "data": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz",
+        "requests": "R 0 5\nW 62 ENDINGTEXT\nR 55 70\nQ",
+        "data_changed": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzENDINGTEXT",
+        "read_results": "ABCDEF\ntuvwxyzENDINGTEX"
+    },
+    {
+        "data": "abcdefghij1234567890ABCDEFGHIJ",
+        "requests": "W 5 MIDDLE\nR 0 15\nW 0 START\nR 0 10\nQ",
+        "data_changed": "STARTabcdeMIDDLEfghij1234567890ABCDEFGHIJ",
+        "read_results": "abcdeMIDDLEfghij\nSTARTabcdeM"
+    },
+    {
+        "data": "0123456789abcdef",
+        "requests": "R 3 8\nW 8 9999\nR 0 15\nW 0 123\nR 0 10\nQ",
+        "data_changed": "12301234567999989abcdef",
+        "read_results": "345678\n01234567999989ab\n12301234567"
+    },
+    {
+        "data": "abcdefghij",
+        "requests": "R 0 20\nW 10 XYZ\nR 5 15\nQ",
+        "data_changed": "abcdefghijXYZ",
+        "read_results": ""    
+    },
+    {
+        "data": "StartOfData",
+        "requests": "R 90 150\nW 0 PREPEND\nR 0 15\nW 17 POST\nR 12 16\nQ",
+        "data_changed": "PREPENDStartOfDatPOSTa",
+        "read_results": "PREPENDStartOfDa\nOfDat"
+    },
+    {
+        "data": "ILOVEWINDOWS",
+        "requests": "W 1 DONT\nR 0 200\nR 0 15\nQ",
+        "data_changed": "IDONTLOVEWINDOWS",
+        "read_results": "IDONTLOVEWINDOWS"
+    },
+    {
+        "data": "OMEROMEROMEROMERomeromeromeromer",
+        "requests": "W 5 abc\nR 18 18\nR 7 15\nW 15 XYZ\nR 10 20\nQ",
+        "data_changed": "OMEROabcMEROMERXYZOMERomeromeromeromer",
+        "read_results": "R\ncMEROMERO\nROMERXYZOME"
+    },
+    {
+        "data": "1234567890abcdefghij",
+        "requests": "R 25 25\nR 3 8\nW 8 9999\nR 5 15\nQ",
+        "data_changed": "12345678999990abcdefghij",
+        "read_results": "456789\n678999990ab"
+    },
+    {
+        "data": "abcdefghij1234567890",
+        "requests": "W 7 XYZ\nR 8 18\nW 13 PQ\nW 100 OMER\nR 10 16\nQ",
+        "data_changed": "abcdefgXYZhijPQ1234567890",
+        "read_results": "YZhij123456\nhijPQ12"
+    },
+    {
+        "data": "HELLOWORLD1234567890",
+        "requests": "R 4 9\nW 9 ABC\nR 7 15\nQ",
+        "data_changed": "HELLOWORLABCD1234567890",
+        "read_results": "OWORLD\nRLABCD123"
+    }
+]
