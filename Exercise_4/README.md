@@ -1,7 +1,7 @@
 # Concurrent Programming and Synchronization Mechanisms Assignment
 
 
-**Submission Due Date: 26.06.25 23:59:00**
+**Submission Due Date: 01.07.25 23:59:00**
 
 ### General Description
 
